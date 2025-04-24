@@ -92,7 +92,7 @@ public class CardOrderTest {
     }
 
     @Test
-    void shouldTestWarnIfUncheckedCheckbox() {
+    void shouldTestWarnIfUncheckedCheckboxWithValidName() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Петров-Иванов");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.cssSelector(".button")).click();
@@ -102,5 +102,4 @@ public class CardOrderTest {
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 }
-
 
