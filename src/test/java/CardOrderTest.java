@@ -50,7 +50,7 @@ public class CardOrderTest {
 
     @Test
     void shouldTestWarnIfIncorrectTel() {
-        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иван");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+792777");
         driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__box")).click();
         driver.findElement(By.cssSelector(".button")).click();
@@ -60,10 +60,21 @@ public class CardOrderTest {
 
     @Test
     void shouldTestWarnIfNoName() {
+        // Оставляем имя пустым, заполняем остальные поля валидными данными
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__box")).click();
         driver.findElement(By.cssSelector(".button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения", text.trim());
+    }
+
+    @Test
+    void shouldTestWarnIfNoPhone() {
+        // Оставляем телефон пустым, заполняем остальные поля валидными данными
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов");
+        driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__box")).click();
+        driver.findElement(By.cssSelector(".button")).click();
+        String text = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
 
@@ -86,8 +97,8 @@ public class CardOrderTest {
         String nameError = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", nameError.trim());
 
-        // Проверка ошибки для чекбокса
-        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
+        // Проверка ошибки для чекбокса (исправленный селектор с классом input_invalid)
+        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid .checkbox__text")).getText();
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 
@@ -97,9 +108,8 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.cssSelector(".button")).click();
 
-        // Проверка ошибки для чекбокса
-        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
+        // Проверка ошибки для чекбокса (исправленный селектор с классом input_invalid)
+        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid .checkbox__text")).getText();
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 }
-
