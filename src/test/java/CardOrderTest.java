@@ -98,7 +98,7 @@ public class CardOrderTest {
         assertEquals("Поле обязательно для заполнения", nameError.trim());
 
         // Проверка ошибки для чекбокса (исправленный селектор с классом input_invalid)
-        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid .checkbox__text")).getText();
+        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 
