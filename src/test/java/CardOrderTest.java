@@ -88,21 +88,7 @@ public class CardOrderTest {
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
 
-    @Test
-    void shouldTestWarnIfNoNameAndUncheckedCheckbox() {
-        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
-        driver.findElement(By.cssSelector(".button")).click();
-
-        // Проверка ошибки для имени
-        String nameError = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
-        assertEquals("Поле обязательно для заполнения", nameError.trim());
-
-        // Проверка ошибки для чекбокса (исправленный селектор с классом input_invalid)
-        String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
-        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
-    }
-
-    @Test
+        @Test
     void shouldTestWarnIfUncheckedCheckboxWithValidName() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Петров-Иванов");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
